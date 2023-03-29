@@ -23,4 +23,7 @@
     <color name="text_head">#BFD1FF</color>
     <color name="text_dis">#DEE7FF</color>
 
+    <color name="mainmenubuttonback">#3D4352</color>
+    <color name="transparent">#00000000</color>
+
 </resources>

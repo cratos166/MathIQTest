@@ -62,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
 
     LinearLayout linearLayoutPoint;
 
+    LocalData localData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,9 @@ public class GameActivity extends AppCompatActivity {
         imageView.setImageResource(gameHolder.getImage());
 
         gameData=new GameData(GameActivity.this);
+        localData=new LocalData(GameActivity.this);
+
+
         if(gameData.levelPermissionGetter(level).equals("LOCKED")){
             gameData.levelPermissionSetter(level,"UNLOCKED");
         }else if(gameData.levelPermissionGetter(level).equals("SUCCESSFUL")||gameData.levelPermissionGetter(level).equals("FAILED")){
@@ -197,6 +202,9 @@ public class GameActivity extends AppCompatActivity {
 
             gameData.levelPermissionSetter(level,"SUCCESSFUL");
             gameData.levelPermissionSetter(level+1, "UNLOCKED");
+
+
+            localData.setMyScore(score);
 
             new CountDownTimer(1000*3,1000){
 

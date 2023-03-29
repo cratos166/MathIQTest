@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,26 +22,41 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nbird.mathiqtest.DATA.LocalData;
+import com.nbird.mathiqtest.GAME.GameActivity;
 import com.nbird.mathiqtest.MAIN.ADAPTER.ModeAdapter;
 import com.nbird.mathiqtest.MAIN.ADAPTER.ProfileSelectorAdapter;
+import com.nbird.mathiqtest.MAIN.ADAPTER.RecyclerViewLeaderBoardAdapter;
 import com.nbird.mathiqtest.MAIN.MODEL.Modes;
+import com.nbird.mathiqtest.MAIN.MODEL.User;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +65,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
     List<Modes> modeList;
     LocalData localData;
-    RecyclerView myrv;
     CircleImageView propic;
     TextView usernameTextView;
     FirebaseStorage storage;
@@ -56,14 +72,57 @@ public class MainActivity extends AppCompatActivity {
     ProfileSelectorAdapter myAdapter;
     CircleImageView mainActivitPropic;
     Uri imageUri;
+
+
+    Button play,how_to_play,about_us;
+    LottieAnimationView profilebutton;
+
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
+
+    Dialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myrv=(RecyclerView) findViewById(R.id.recyclerView);
-        propic=(CircleImageView) findViewById(R.id.propic);
-        usernameTextView=(TextView) findViewById(R.id.usernameTextView);
+        propic=(CircleImageView) findViewById(R.id.imageView);
+        usernameTextView=(TextView) findViewById(R.id.myName);
+        play=(Button) findViewById(R.id.play);
+        how_to_play=(Button) findViewById(R.id.how_to_play);
+        about_us=(Button) findViewById(R.id.about_us);
+        profilebutton=(LottieAnimationView) findViewById(R.id.profilebutton);
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerDialog();
+            }
+        });
+
+        profilebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leaderBoard();
+            }
+        });
+
+        how_to_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
         getInfo();
 
 
@@ -75,20 +134,202 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        RecyclerCardView();
+        ArrayList<User> listARM=new ArrayList();
+        myRef.child("LEADERBOARD").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    listARM.add(dataSnapshot.getValue(User.class));
+                }
+
+                Collections.sort(listARM, new Comparator<User>() {
+                    @Override
+                    public int compare(User a1, User a2) {
+                        return a1.getScore() - a2.getScore();
+                    }
+                });
+
+
+                int totalScore= localData.getMyScore();
+
+                User user;
+                if(localData.getAvaInt()==101){
+                    user=new User(localData.getMyName(),R.drawable.default_pic,totalScore,localData.getMyUID());
+                }else if(localData.getAvaInt()==100){
+                    user=new User(localData.getMyName(),R.drawable.default_pic,totalScore,localData.getMyUID());
+                }else{
+                    user=new User(localData.getMyName(),localData.getAvaFromList(localData.getAvaInt()),totalScore,localData.getMyUID());
+                }
+
+
+
+                if(listARM.size()<50){
+
+                    myRef.child("LEADERBOARD").child(localData.getMyUID()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+
+                        }
+                    });
+                }else{
+                    for(int i=0;i<listARM.size();i++){
+
+
+                        if(listARM.get(i).getScore()<localData.getMyScore()){
+                            myRef.child("LEADERBOARD").child(listARM.get(listARM.size()-1).getMyUID()).removeValue();
+                            myRef.child("LEADERBOARD").child(localData.getMyUID()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            });
+                            break;
+                        }
+
+
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    public void leaderBoard(){
+
+        loadingDialog=new Dialog(MainActivity.this);
+        loadingDialog.setContentView(R.layout.loading_screen);
+        loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        loadingDialog.setCancelable(false);
+        try{
+            loadingDialog.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        ArrayList<User> list=new ArrayList();
+        myRef.child("LEADERBOARD").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    list.add(dataSnapshot.getValue(User.class));
+                }
+
+                Collections.sort(list, new Comparator<User>() {
+                    @Override
+                    public int compare(User a1, User a2) {
+                        return a1.getScore() - a2.getScore();
+                    }
+                });
+                leaderBoardDialog(list);
+
+
+                try{loadingDialog.dismiss();}catch (Exception e){}
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
 
-    public void RecyclerCardView(){
+    public void leaderBoardDialog(ArrayList<User> list){
+        AlertDialog.Builder builderFact=new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogTheme);
+        final View viewFact= LayoutInflater.from(MainActivity.this).inflate(R.layout.leaderboard_dialog,(ConstraintLayout) findViewById(R.id.layoutDialogContainer),false);
+        builderFact.setView(viewFact);
+        builderFact.setCancelable(false);
+
+        AlertDialog alertDialog=builderFact.create();
+
+        RecyclerView recyclerView = (RecyclerView) viewFact.findViewById(R.id.recyclerView);
+        Button cancelButton=(Button) viewFact.findViewById(R.id.cancelButton);
+
+
+        if(alertDialog.getWindow()!=null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        try{
+            alertDialog.show();
+        }catch (Exception e){
+
+        }
+
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    alertDialog.dismiss();
+                }catch (Exception e){
+
+                }
+            }
+        });
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        linearLayoutManager.setOrientation(recyclerView.VERTICAL);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        RecyclerViewLeaderBoardAdapter categoryAdapter = new RecyclerViewLeaderBoardAdapter(list);
+        recyclerView.setAdapter(categoryAdapter);
+
+
+
+    }
+
+    public void recyclerDialog(){
+        AlertDialog.Builder builderFact=new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogTheme);
+        final View viewFact= LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_recycler,(ConstraintLayout) findViewById(R.id.layoutDialogContainer),false);
+        builderFact.setView(viewFact);
+        builderFact.setCancelable(true);
+
+        AlertDialog alertDialog=builderFact.create();
+
+        RecyclerView recyclerView = (RecyclerView) viewFact.findViewById(R.id.recyclerView);
+
+
+
+        if(alertDialog.getWindow()!=null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        try{
+            alertDialog.show();
+        }catch (Exception e){
+
+        }
+
         modeList=new ArrayList<>();
         parto();
         //   timerStarter();
 
         ModeAdapter myAdapter=new ModeAdapter(this,modeList);
-        myrv.setLayoutManager(new GridLayoutManager(this,2));
-        myrv.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setAdapter(myAdapter);
+
+
+
     }
+
+
+
 
     public void parto(){
 
@@ -150,8 +391,10 @@ public class MainActivity extends AppCompatActivity {
 
 
             }else if(localData.getAvaInt()==100){
+                propic.setBackgroundResource(0);
                 propic.setBackgroundResource(R.drawable.default_pic);
             }else{
+                propic.setBackgroundResource(0);
                 propic.setBackgroundResource(localData.getAvaFromList(localData.getAvaInt()));
             }
 

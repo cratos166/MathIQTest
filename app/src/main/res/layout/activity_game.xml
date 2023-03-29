@@ -72,7 +72,7 @@
         android:id="@+id/levelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ubuntu"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:shadowColor="@color/button_color"
         android:text="Points : 200"
         android:textColor="@color/button_color"
@@ -111,7 +111,7 @@
                 android:id="@+id/answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu"
+                android:fontFamily="@font/annie_use_your_telescope"
                 android:inputType="none"
                 android:nextFocusDown="@+id/textView2"
                 android:singleLine="true"
@@ -128,6 +128,9 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/next_button"
             android:text="Check"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/annie_use_your_telescope"
             android:textColor="@color/level_2"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,8 +158,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hint : 1"
+            android:fontFamily="@font/annie_use_your_telescope"
             android:textColor="@color/level_0"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
 
@@ -209,8 +213,8 @@
             android:layout_height="wrap_content"
             android:text="Points : 200"
             android:textColor="@color/level_0"
-            android:textSize="15dp"
-            android:fontFamily="@font/ubuntu"
+            android:textSize="16dp"
+            android:fontFamily="@font/annie_use_your_telescope"
             android:textStyle="bold" />
 
 

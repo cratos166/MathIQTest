@@ -96,6 +96,22 @@ public class LocalData {
     }
 
 
+    public void setMyScore(int score){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MY_DATA", 0);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        int value = sharedPreferences.getInt("SCORE",0);
+        value=value+score;
+        editor.putInt("SCORE", value);
+        editor.commit();
+    }
+
+    public int getMyScore(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MY_DATA", 0);
+        int value = sharedPreferences.getInt("SCORE",0);
+        return value;
+    }
+
+
 
     public String getMyUID(){
         SharedPreferences sharedPreferences = context.getSharedPreferences("MY_DATA", 0);
