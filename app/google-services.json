@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002441248739",
+    "project_id": "maths-iq-test-4e4ff",
+    "storage_bucket": "maths-iq-test-4e4ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002441248739:android:d981b17517883c56409ad6",
+        "android_client_info": {
+          "package_name": "com.nbird.mathiqtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002441248739-6c1s4eac6b49tha0u7cgfii8mp36m324.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGLVouG-c4L0OHriQ3qhtDakC9aHZTZ3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002441248739-6c1s4eac6b49tha0u7cgfii8mp36m324.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
