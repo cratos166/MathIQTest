@@ -29,6 +29,13 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,6 +48,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.nbird.mathiqtest.DATA.Constants;
 import com.nbird.mathiqtest.DATA.LocalData;
 import com.nbird.mathiqtest.GAME.GameActivity;
 import com.nbird.mathiqtest.MAIN.ADAPTER.ModeAdapter;
@@ -82,10 +90,28 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference();
 
     Dialog loadingDialog;
+    
+    
+    private void adShow(){
+        AdView mAdView = findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setVisibility(View.VISIBLE);
+
+
+        AdView mAdView2 = findViewById(R.id.adView2);
+        AdRequest adRequest1 = new AdRequest.Builder().build();
+        mAdView2.loadAd(adRequest1);
+        mAdView2.setVisibility(View.VISIBLE);
+    }
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        adShow();
 
         propic=(CircleImageView) findViewById(R.id.imageView);
         usernameTextView=(TextView) findViewById(R.id.myName);
@@ -258,6 +284,23 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) viewFact.findViewById(R.id.recyclerView);
         Button cancelButton=(Button) viewFact.findViewById(R.id.cancelButton);
 
+        MobileAds.initialize(MainActivity.this);
+        AdLoader adLoader = new AdLoader.Builder(MainActivity.this, Constants.NATIVE_ADS)
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        ColorDrawable cd = new ColorDrawable(0x393F4E);
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(cd).build();
+                        TemplateView template = viewFact.findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                        template.setVisibility(View.VISIBLE);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
 
         if(alertDialog.getWindow()!=null){
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
@@ -315,6 +358,24 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
+
+
+        MobileAds.initialize(MainActivity.this);
+        AdLoader adLoader = new AdLoader.Builder(MainActivity.this, Constants.NATIVE_ADS)
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        ColorDrawable cd = new ColorDrawable(0x393F4E);
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(cd).build();
+                        TemplateView template = viewFact.findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                        template.setVisibility(View.VISIBLE);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
         modeList=new ArrayList<>();
         parto();

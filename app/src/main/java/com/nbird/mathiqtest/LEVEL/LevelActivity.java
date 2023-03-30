@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,10 +38,27 @@ public class LevelActivity extends AppCompatActivity {
     List<LevelModel> levelModelList;
     LevelAdapter myAdapter;
     GameData gameData;
+
+    private void adShow(){
+        AdView mAdView = findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setVisibility(View.VISIBLE);
+
+
+        AdView mAdView2 = findViewById(R.id.adView2);
+        AdRequest adRequest1 = new AdRequest.Builder().build();
+        mAdView2.loadAd(adRequest1);
+        mAdView2.setVisibility(View.VISIBLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
+
+
+        adShow();
 
         level=getIntent().getIntExtra("LEVEL",1);
 

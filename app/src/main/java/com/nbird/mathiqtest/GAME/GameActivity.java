@@ -1,5 +1,7 @@
 package com.nbird.mathiqtest.GAME;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +26,25 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.nbird.mathiqtest.DATA.Constants;
 import com.nbird.mathiqtest.DATA.GameData;
 import com.nbird.mathiqtest.DATA.Level_1_Data;
 import com.nbird.mathiqtest.DATA.LocalData;
@@ -63,11 +81,140 @@ public class GameActivity extends AppCompatActivity {
     LinearLayout linearLayoutPoint;
 
     LocalData localData;
+    CountDownTimer countDownTimer;
+
+
+    RewardedAd rewardedAd;
+    private void rewardAdsLoader(){
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(GameActivity.this, Constants.REWARD_ADS,
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+
+                        //   Toast.makeText(MainActivity.this, loadAdError.toString(), Toast.LENGTH_LONG).show();
+                        Log.d(TAG, loadAdError.toString());
+                        rewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd ad) {
+                        rewardedAd = ad;
+                        // Toast.makeText(context, "Ad was loaded", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Ad was loaded.");
+                    }
+                });
+
+
+        try{
+            rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdClicked() {
+                    // Called when a click is recorded for an ad.
+                    Log.d(TAG, "Ad was clicked.");
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    // Set the ad reference to null so you don't show the ad a second time.
+
+
+
+
+                    Log.d(TAG, "Ad dismissed fullscreen content.");
+                    rewardedAd = null;
+                }
+
+                @Override
+                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                    // Called when ad fails to show.
+                    Toast.makeText(GameActivity.this, "Ads failed to load", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Ad failed to show fullscreen content.");
+                    rewardedAd = null;
+                }
+
+                @Override
+                public void onAdImpression() {
+                    // Called when an impression is recorded for an ad.
+
+
+
+                    Log.d(TAG, "Ad recorded an impression.");
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    // Called when ad is shown.
+                    Log.d(TAG, "Ad showed fullscreen content.");
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
+
+    }
+
+
+    private void adShow(){
+        AdView mAdView = findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setVisibility(View.VISIBLE);
+        countDownTimer=new CountDownTimer(1000*20,1000){
+
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                try{mAdView.destroy();}catch (Exception e){}
+                 adShow();
+            }
+        }.start();
+
+
+
+
+
+//        MobileAds.initialize(GameActivity.this);
+//        AdLoader adLoader = new AdLoader.Builder(GameActivity.this, Constants.NATIVE_ADS)
+//                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+//                    @Override
+//                    public void onNativeAdLoaded(NativeAd nativeAd) {
+//                        ColorDrawable cd = new ColorDrawable(0x393F4E);
+//
+//                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(cd).build();
+//                        TemplateView template = findViewById(R.id.my_template);
+//                        template.setStyles(styles);
+//                        template.setNativeAd(nativeAd);
+//                        template.setVisibility(View.VISIBLE);
+//
+//                    }
+//                })
+//                .build();
+//
+//        adLoader.loadAd(new AdRequest.Builder().build());
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        adShow();
+        rewardAdsLoader();
+
+
 
         level=getIntent().getIntExtra("LEVEL",1);
         levelNameStr=getIntent().getStringExtra("LEVEL_NAME");
@@ -278,6 +425,25 @@ public class GameActivity extends AppCompatActivity {
 //        textTitle.setText(hintSuperText);
 
 
+
+        MobileAds.initialize(GameActivity.this);
+        AdLoader adLoader = new AdLoader.Builder(GameActivity.this, Constants.NATIVE_ADS)
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        ColorDrawable cd = new ColorDrawable(0x393F4E);
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(cd).build();
+                        TemplateView template = viewFact.findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                        template.setVisibility(View.VISIBLE);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+
         if(alertDialog.getWindow()!=null){
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
@@ -298,11 +464,51 @@ public class GameActivity extends AppCompatActivity {
                 }
 
 
+
                 if(hintNumber==5){
-                    Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                    intent.putExtra("LEVEL",level+1);
-                    startActivity(intent);
-                    finish();
+
+
+                    if (rewardedAd != null) {
+
+                        rewardedAd.show(GameActivity.this, new OnUserEarnedRewardListener() {
+                            @Override
+                            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                                // Handle the reward.
+                                Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                                intent.putExtra("LEVEL",level+1);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                        });
+                    } else {
+                        Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                        intent.putExtra("LEVEL",level+1);
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+
+
+
+
+                }else{
+                    if (rewardedAd != null) {
+
+                        rewardedAd.show(GameActivity.this, new OnUserEarnedRewardListener() {
+                            @Override
+                            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                                // Handle the reward.
+                                rewardedAd=null;
+                                rewardAdsLoader();
+                            }
+                        });
+                    } else {
+
+                        rewardedAd=null;
+                        rewardAdsLoader();
+                    }
                 }
 
 
@@ -333,6 +539,24 @@ public class GameActivity extends AppCompatActivity {
         textTitle.setText(text);
 
 
+        MobileAds.initialize(GameActivity.this);
+        AdLoader adLoader = new AdLoader.Builder(GameActivity.this, Constants.NATIVE_ADS)
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        ColorDrawable cd = new ColorDrawable(0x393F4E);
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(cd).build();
+                        TemplateView template = viewFact.findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                        template.setVisibility(View.VISIBLE);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+
         if(alertDialog.getWindow()!=null){
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
@@ -355,10 +579,31 @@ public class GameActivity extends AppCompatActivity {
 
                 }
 
-                Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                intent.putExtra("LEVEL",level+1);
-                startActivity(intent);
-                finish();
+
+                if (rewardedAd != null) {
+
+                    rewardedAd.show(GameActivity.this, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                            // Handle the reward.
+                            Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                            intent.putExtra("LEVEL",level+1);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    });
+                } else {
+                    Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                    intent.putExtra("LEVEL",level+1);
+                    startActivity(intent);
+                    finish();
+
+                }
+
+
+
+
 
 
             }
@@ -370,12 +615,46 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void onBackPressed(){
-        Intent intent=new Intent(GameActivity.this, LevelActivity.class);
-        intent.putExtra("LEVEL",mainLevel);
-        startActivity(intent);
-        finish();
+
+
+        if (rewardedAd != null) {
+
+            rewardedAd.show(GameActivity.this, new OnUserEarnedRewardListener() {
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                    // Handle the reward.
+
+                    Intent intent=new Intent(GameActivity.this, LevelActivity.class);
+                    intent.putExtra("LEVEL",mainLevel);
+                    startActivity(intent);
+                    finish();
+
+                }
+            });
+        } else {
+            Intent intent=new Intent(GameActivity.this, LevelActivity.class);
+            intent.putExtra("LEVEL",mainLevel);
+            startActivity(intent);
+            finish();
+
+        }
+
+
+
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        try{
+            countDownTimer.cancel();
+        }catch (Exception e){
+
+        }
+        Runtime.getRuntime().gc();
+
+    }
 
 }

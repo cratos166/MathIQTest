@@ -10,23 +10,35 @@
     android:orientation="vertical"
     >
 
-
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        app:adSize="BANNER"
+        app:adUnitId="@string/bannerId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:text="Scribble"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:gravity="center"
-        android:textColor="@color/text_head"
-        android:textSize="120dp"
-        android:textStyle="bold"
         android:scaleX="0.9"
         android:shadowColor="@color/black"
-        android:fontFamily="@font/annie_use_your_telescope"
+        android:text="Brain Teaser"
+        android:textColor="@color/text_head"
+        android:textSize="70dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/adView2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -191,6 +203,19 @@
     </LinearLayout>
 
 
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        android:visibility="gone"
+        app:adUnitId="@string/bannerId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 
