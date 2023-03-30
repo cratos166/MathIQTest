@@ -58,10 +58,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:fontFamily="@font/ubuntu_bold"
+                    android:fontFamily="@font/annie_use_your_telescope"
                     android:gravity="left"
                     android:text="Lv. 1"
-
+                    android:textStyle="bold"
                     android:textColor="@color/text_head"
                     android:textSize="15dp" />
 
@@ -87,7 +87,8 @@
                     android:shadowRadius="8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/ubuntu"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/annie_use_your_telescope"
                     android:text="Exam"/>
 
             </LinearLayout>
@@ -98,12 +99,14 @@
                 android:id="@+id/nameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/ubuntu_bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/annie_use_your_telescope"
                 android:gravity="left"
                 android:text="Star Trek"
+                android:textStyle="bold"
                 android:textColor="@color/text_head"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
 
 

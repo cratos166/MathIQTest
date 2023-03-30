@@ -53,7 +53,7 @@ public class Level_1_Data {
 
         gameHoldersList.add(new GameHolder("Initials of each part of the face is considered in drawing the answer","Use decreasing order rule","Eyebrows = “E”, Eye = “E”, Nose = “N”, Mouth = “M”","NEME",R.drawable.m_2_9));
 
-        gameHoldersList.add(new GameHolder("A=1, D= 4 , 1 + 4 => 5","E => 5","O =>15, H => 8,  15 + 8 which alphabet?","w",R.drawable.m_2_10));
+        gameHoldersList.add(new GameHolder("A=1, D= 4 , 1 + 4 => 5","E => 5","O =>15, H => 8,  15 + 8 which alphabet?","W",R.drawable.m_2_10));
 
         gameHoldersList.add(new GameHolder("Look for the angles of the stick","Sum up all the angles of the stick","0+60+90+120=270","930",R.drawable.m_2_11));
 

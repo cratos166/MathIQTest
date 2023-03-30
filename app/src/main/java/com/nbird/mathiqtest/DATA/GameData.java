@@ -45,8 +45,6 @@ public class GameData {
         levelModelList.add(new LevelModel("Sub-Zero Sip", R.drawable.m_1_21,21));
         levelModelList.add(new LevelModel("Repeat Tumbler", R.drawable.m_1_22,22));
 
-
-
         return levelModelList;
 
 

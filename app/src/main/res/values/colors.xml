@@ -25,5 +25,7 @@
 
     <color name="mainmenubuttonback">#3D4352</color>
     <color name="transparent">#00000000</color>
+    <color name="dark_border_stroke">#555B68</color>
+    <color name="dark_outer_box">#6A7592</color>
 
 </resources>

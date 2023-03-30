@@ -53,15 +53,8 @@ public class ModeAdapter extends RecyclerView.Adapter<ModeAdapter.MyViewHolder> 
         holder.setIsRecyclable(false);
         holder.tv_exam_title.setText(mData.get(position).getTitle());
         holder.img_exam_thumbnail.setImageResource(mData.get(position).getThumbnail());
-        holder.exam_dis.setText(mData.get(position).getDis());
 
         List<Boolean> levelList = localData.getMyLevelStatus();
-
-            if(levelList.get(position)){
-                holder.exam_dis.setTextColor(Color.parseColor("#52B649"));
-            }else{
-                holder.exam_dis.setTextColor(Color.parseColor("#FF4234"));
-            }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +80,6 @@ public class ModeAdapter extends RecyclerView.Adapter<ModeAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tv_exam_title;
         ImageView img_exam_thumbnail;
-        TextView exam_dis;
         CardView cardView;
 
 
@@ -96,7 +88,6 @@ public class ModeAdapter extends RecyclerView.Adapter<ModeAdapter.MyViewHolder> 
 
             tv_exam_title=(TextView) itemView.findViewById(R.id.exam_title);
             img_exam_thumbnail=(ImageView) itemView.findViewById(R.id.exam_img_id);
-            exam_dis=(TextView) itemView.findViewById(R.id.exam_dis);
             cardView=(CardView) itemView.findViewById(R.id.cardview_id);
 
         }

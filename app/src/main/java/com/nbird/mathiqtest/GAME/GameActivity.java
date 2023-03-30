@@ -474,18 +474,36 @@ public class GameActivity extends AppCompatActivity {
                             @Override
                             public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                                 // Handle the reward.
-                                Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                                intent.putExtra("LEVEL",level+1);
-                                startActivity(intent);
-                                finish();
+
+
+                                if(level+1>107){
+                                    Toast.makeText(GameActivity.this, "You have completed the whole game.", Toast.LENGTH_LONG).show();
+                                    Intent intent=new Intent(GameActivity.this,MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                                    intent.putExtra("LEVEL",level+1);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+
 
                             }
                         });
                     } else {
-                        Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                        intent.putExtra("LEVEL",level+1);
-                        startActivity(intent);
-                        finish();
+                        if(level+1>107){
+                            Toast.makeText(GameActivity.this, "You have completed the whole game.", Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(GameActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                            intent.putExtra("LEVEL",level+1);
+                            startActivity(intent);
+                            finish();
+                        }
 
                     }
 
@@ -586,18 +604,36 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             // Handle the reward.
-                            Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                            intent.putExtra("LEVEL",level+1);
-                            startActivity(intent);
-                            finish();
+
+
+                            if(level+1>107){
+                                Toast.makeText(GameActivity.this, "You have completed the whole game.", Toast.LENGTH_LONG).show();
+                                Intent intent=new Intent(GameActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                                intent.putExtra("LEVEL",level+1);
+                                startActivity(intent);
+                                finish();
+                            }
+
+
 
                         }
                     });
                 } else {
-                    Intent intent=new Intent(GameActivity.this,GameActivity.class);
-                    intent.putExtra("LEVEL",level+1);
-                    startActivity(intent);
-                    finish();
+                    if(level+1>107){
+                        Toast.makeText(GameActivity.this, "You have completed the whole game.", Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent(GameActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent=new Intent(GameActivity.this,GameActivity.class);
+                        intent.putExtra("LEVEL",level+1);
+                        startActivity(intent);
+                        finish();
+                    }
 
                 }
 

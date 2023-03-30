@@ -8,8 +8,6 @@
     android:scaleY="0.9"
     android:scaleX="0.9"
     android:layout_margin="5dp"
-    android:padding="20dp"
-
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutDialogContainer">
 
@@ -58,11 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/my_template"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/my_template"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <com.airbnb.lottie.LottieAnimationView

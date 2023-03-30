@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.nbird.mathiqtest">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MAIN.Application"
@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <activity
+            android:name=".MAIN.AboutUs"
+            android:exported="false" />
         <activity
             android:name=".GAME.GameActivity"
             android:exported="false" />
@@ -30,18 +33,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- DEMO ca-app-pub-3940256099942544~3347511713 -->
-<!--        REAL ca-app-pub-2384938955607297~9049825016-->
+        </activity> <!-- DEMO ca-app-pub-3940256099942544~3347511713 -->
+        <!-- REAL ca-app-pub-2384938955607297~9049825016 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
-
         <meta-data
             android:name="com.google.android.gms.ads.flag.NATIVE_AD_DEBUGGER_ENABLED"
             android:value="true" />
-
     </application>
 
 </manifest>

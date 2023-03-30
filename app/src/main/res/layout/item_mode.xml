@@ -23,7 +23,7 @@
             android:id="@+id/exam_img_id"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:layout_width="70dp"
             android:elevation="5dp"
             android:scaleX="1"
@@ -48,26 +48,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:fontFamily="@font/ubuntu_bold"
-                android:gravity="left"
+                android:fontFamily="@font/annie_use_your_telescope"
+                android:gravity="center"
+                android:textStyle="bold"
                 android:text="1 Vs 1"
                 android:textColor="@color/text_head"
-                android:textSize="18dp" />
+                android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/exam_dis"
-                android:textSize="15dp"
-                android:elevation="3dp"
-                android:textColor="@color/text_dis"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:gravity="left"
-                android:shadowRadius="8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/ubuntu"
-                android:text="Exam"/>
 
         </LinearLayout>
     </LinearLayout>

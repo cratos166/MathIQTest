@@ -54,6 +54,7 @@ import com.nbird.mathiqtest.GAME.GameActivity;
 import com.nbird.mathiqtest.MAIN.ADAPTER.ModeAdapter;
 import com.nbird.mathiqtest.MAIN.ADAPTER.ProfileSelectorAdapter;
 import com.nbird.mathiqtest.MAIN.ADAPTER.RecyclerViewLeaderBoardAdapter;
+import com.nbird.mathiqtest.MAIN.AboutUs;
 import com.nbird.mathiqtest.MAIN.MODEL.Modes;
 import com.nbird.mathiqtest.MAIN.MODEL.User;
 
@@ -62,6 +63,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
 import java.util.Comparator;
@@ -120,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
         about_us=(Button) findViewById(R.id.about_us);
         profilebutton=(LottieAnimationView) findViewById(R.id.profilebutton);
 
+
+        how_to_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Nifty+Nile"));
+                startActivity(browserIntent);
+            }
+        });
+
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,17 +145,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        how_to_play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         about_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(MainActivity.this, AboutUs.class);
+                startActivity(intent);
             }
         });
 
@@ -257,6 +262,10 @@ public class MainActivity extends AppCompatActivity {
                         return a1.getScore() - a2.getScore();
                     }
                 });
+
+
+                Collections.reverse(list);
+
                 leaderBoardDialog(list);
 
 
@@ -326,8 +335,8 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         linearLayoutManager.setOrientation(recyclerView.VERTICAL);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
+//        linearLayoutManager.setReverseLayout(true);
+//        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         RecyclerViewLeaderBoardAdapter categoryAdapter = new RecyclerViewLeaderBoardAdapter(list);
