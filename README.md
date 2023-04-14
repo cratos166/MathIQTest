@@ -1,5 +1,5 @@
 # **IQ Test Pro - Brain Games**
-> Paper Wind-CBSE,CISCE,JEE Advanced,JEE Main & More
+> BRAIN GAMES
 
 ![Logo](https://play-lh.googleusercontent.com/04RAjCzCSMdpcw3oyndPYE2GEMypbyt0oIb_Dg6l0CupnFz5UAOOagt_6Qua2v23iHE=w240-h480-rw)
 
@@ -13,6 +13,12 @@ Education is one of the most important aspects of a student's life and the bridg
 The Project aims to help students across the country by providing them easy access to a wide range of features. 📰📊
 
 <img src="https://play-lh.googleusercontent.com/HDwcWm1w3vKwr_sfBtRJWKsv1GxQy6ggxSSVs91hpeuP4mZh4vAe-k4EG1oTXCp4Mio=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/qId3VUGlqoiLrh1OcpPZMne8H21OyTKOby1oOaGKUkI1uf1rMvwGwu5yzITsPdWVXlKk=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/wa9XZ8WI7O0Qdsxd5uW2sTQM2Kf4zpLD6FZkA-lRU1_JmykKHdvC76lkaaf7c7mmw13H=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/3HJwvolMl8DnJFMZ2vCe9wIaviixoqVZCPHocWpiXOXBb4BX6y3y-_gqGoYE4S2Xaio=w526-h296-rw" width="150px">
+<img src="https://play-lh.googleusercontent.com/5gxL30XUnGoKUoKsoJfrif1tix6WV0LQg6p7cyN67TZQwxVgChj-mtuf50RedSBCBCMx=w526-h296-rw" width="150px">
+<img src="https://play-lh.googleusercontent.com/3LVsJUGTRonTR78R8BJsaOv0MWR6ni0jWTYYJEDDt5feMUYtQvtSyXq0xYWhoFBKoQ=w526-h296-rw" width="150px">
+<img src="https://play-lh.googleusercontent.com/ZMCKa6fMMtaNaShnwPSxUQnOoF-tTU0xDFrUtbN2rhqwDlZYkOkLiANPm7XBJmetmA=w526-h296-rw" width="150px">
+<img src="https://play-lh.googleusercontent.com/mRqtmjzW7Pn8Zc_EbFFscPTjTzZsOfW4gZdtm9t3K-lfV_AgYJ3ZiB8V4xL7IGSWy6U=w526-h296-rw" width="150px">
+
+
 
 ⭐⭐🌟⭐⭐
 
