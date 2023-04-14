@@ -7,11 +7,6 @@
 
 Welcome! ❤
 
-NIFTY NILE presents the ultimate All-In-One student package.
-
-Education is one of the most important aspects of a student's life and the bridge to this immense castle is the ultimate need of the hour. 🌍
-The Project aims to help students across the country by providing them easy access to a wide range of features. 📰📊
-
 <img src="https://play-lh.googleusercontent.com/HDwcWm1w3vKwr_sfBtRJWKsv1GxQy6ggxSSVs91hpeuP4mZh4vAe-k4EG1oTXCp4Mio=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/qId3VUGlqoiLrh1OcpPZMne8H21OyTKOby1oOaGKUkI1uf1rMvwGwu5yzITsPdWVXlKk=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/wa9XZ8WI7O0Qdsxd5uW2sTQM2Kf4zpLD6FZkA-lRU1_JmykKHdvC76lkaaf7c7mmw13H=w526-h296-rw" width="150px">   <img src="https://play-lh.googleusercontent.com/3HJwvolMl8DnJFMZ2vCe9wIaviixoqVZCPHocWpiXOXBb4BX6y3y-_gqGoYE4S2Xaio=w526-h296-rw" width="150px">
 <img src="https://play-lh.googleusercontent.com/5gxL30XUnGoKUoKsoJfrif1tix6WV0LQg6p7cyN67TZQwxVgChj-mtuf50RedSBCBCMx=w526-h296-rw" width="150px">
 <img src="https://play-lh.googleusercontent.com/3LVsJUGTRonTR78R8BJsaOv0MWR6ni0jWTYYJEDDt5feMUYtQvtSyXq0xYWhoFBKoQ=w526-h296-rw" width="150px">
@@ -69,5 +64,5 @@ Whether you're looking to improve your grades, prepare for a test, or just want 
 
 
 ### ***PUBLISHED SAMPLE***
-Experience the power of Paper Wind on your own!
+Experience the power of IQ Test on your own!
 [Download now](https://play.google.com/store/apps/details?id=com.nbird.mathiqtest2) at Google Play Store
